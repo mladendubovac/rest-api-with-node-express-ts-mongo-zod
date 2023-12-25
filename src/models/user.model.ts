@@ -2,16 +2,20 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import config from 'config';
 
-export type UserDocument = mongoose.Document & {
+export type UserInput = {
 	email: string;
 	name: string;
 	password: string;
-	createdAt: Date;
-	updatedAt: Date;
-    comparePassword: (candidatePassword: string) => Promise<boolean>
 };
 
-const userSchema = new mongoose.Schema<UserDocument>(
+export type UserDocument = UserInput &
+	mongoose.Document & {
+		createdAt: Date;
+		updatedAt: Date;
+		comparePassword: (candidatePassword: string) => Promise<boolean>;
+	};
+
+const userSchema = new mongoose.Schema(
 	{
 		email: {
 			type: String,

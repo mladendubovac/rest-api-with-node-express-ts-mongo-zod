@@ -1,13 +1,12 @@
 import { type FilterQuery } from 'mongoose';
-import UserModel, { UserDocument } from '../models/user.model';
+import UserModel, {
+	type UserDocument,
+	type UserInput
+} from '../models/user.model';
 import errorHandler from '../utils/errorHandler';
 import omit from 'lodash/omit';
 
-async function createUser(
-	input: FilterQuery<
-		Omit<UserDocument, 'createdAt' | 'updatedAt' | 'comparePassword'>
-	>
-) {
+async function createUser(input: UserInput) {
 	try {
 		const user = await UserModel.create(input);
 		return omit(user.toJSON(), 'password');

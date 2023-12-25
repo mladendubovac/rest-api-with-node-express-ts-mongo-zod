@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "ts-node-dev --respawn --transpile-only src/app.ts",
-		"generate-keys": "ts-node-dev generateKeys.ts"
+		"generate-keys": "ts-node-dev generateKeys.ts",
+		"build": "tsc"
 	},
 	"dependencies": {
 		"bcrypt": "^5.1.1",

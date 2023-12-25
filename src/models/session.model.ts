@@ -9,7 +9,7 @@ export type SessionDocument = mongoose.Document & {
     updateAt: Date;
 };
 
-const sessionSchema = new mongoose.Schema<SessionDocument>(
+const sessionSchema = new mongoose.Schema(
 	{
 		user: {
 			type: mongoose.Schema.Types.ObjectId,
