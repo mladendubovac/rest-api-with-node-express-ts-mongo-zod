@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { type HydratedDocument } from 'mongoose';
 import bcrypt from 'bcrypt';
 import config from 'config';
 
@@ -8,14 +8,15 @@ export type UserInput = {
 	password: string;
 };
 
-export type UserDocument = UserInput &
-	mongoose.Document & {
+export type UserDocument = HydratedDocument<
+	UserInput & {
 		createdAt: Date;
 		updatedAt: Date;
 		comparePassword: (candidatePassword: string) => Promise<boolean>;
-	};
+	}
+>;
 
-const userSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema<UserDocument>(
 	{
 		email: {
 			type: String,
@@ -55,6 +56,7 @@ userSchema.methods.comparePassword = async function (
 	candidatePassword: string
 ): Promise<boolean> {
 	const user = this as UserDocument;
+
 	try {
 		return await bcrypt.compare(candidatePassword, user.password);
 	} catch {

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { type HydratedDocument } from 'mongoose';
 import { randomUUID } from 'crypto';
 import { UserDocument } from './user.model';
 
@@ -10,14 +10,15 @@ export type ProductInput = {
 	image: string;
 };
 
-export type ProductDocument = ProductInput &
-	mongoose.Document & {
-        productId: string;
+export type ProductDocument = HydratedDocument<
+	ProductInput & {
+		productId: string;
 		createdAt: Date;
 		updatedAt: Date;
-	};
+	}
+>;
 
-const productSchema = new mongoose.Schema(
+const productSchema = new mongoose.Schema<ProductDocument>(
 	{
 		productId: {
 			type: String,

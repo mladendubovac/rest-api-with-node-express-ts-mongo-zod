@@ -1,15 +1,15 @@
-import mongoose from 'mongoose';
+import mongoose, { type HydratedDocument } from 'mongoose';
 import { UserDocument } from './user.model';
 
-export type SessionDocument = mongoose.Document & {
+export type SessionDocument = HydratedDocument<{
 	user: UserDocument['_id'];
 	valid: boolean;
 	userAgent: string;
-    createdAt: Date;
-    updateAt: Date;
-};
+	createdAt: Date;
+	updateAt: Date;
+}>;
 
-const sessionSchema = new mongoose.Schema(
+const sessionSchema = new mongoose.Schema<SessionDocument>(
 	{
 		user: {
 			type: mongoose.Schema.Types.ObjectId,
@@ -19,7 +19,7 @@ const sessionSchema = new mongoose.Schema(
 			type: Boolean,
 			default: true
 		},
-		userAgent: { type: String },
+		userAgent: { type: String }
 	},
 	{
 		timestamps: true

@@ -1,13 +1,10 @@
-import {
-	FilterQuery,
-	QueryOptions,
-	UpdateQuery
-} from 'mongoose';
-import ProductModel, { type ProductDocument, ProductInput } from '../models/product.model';
+import { FilterQuery, QueryOptions, UpdateQuery } from 'mongoose';
+import ProductModel, {
+	type ProductDocument,
+	ProductInput
+} from '../models/product.model';
 
-async function createProduct(
-	input: ProductInput
-) {
+async function createProduct(input: ProductInput) {
 	return ProductModel.create(input);
 }
 

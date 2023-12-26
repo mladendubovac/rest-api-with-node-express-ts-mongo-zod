@@ -1,21 +1,14 @@
 import express from 'express';
 import validateResource from '../middlewares/validateResource';
-import requireUser from '../middlewares/requireUser';
-import { createSessionSchema } from '../schema/session.schema';
-import {
-	createUserSessionHandler,
-	deleteSessionHandler,
-	getUserSessionsHandler
-} from '../controllers/session.controller';
+import { createUserSchema } from '../schema/user.schema';
+import { createUserHandler } from '../controllers/user.controller';
 
 const router = express.Router();
 
 router.post(
-	'/api/sessions',
-	validateResource(createSessionSchema),
-	createUserSessionHandler
+	'/api/users',
+	validateResource(createUserSchema),
+	createUserHandler
 );
-router.get('/api/sessions', requireUser, getUserSessionsHandler);
-router.delete('/api/sessions', requireUser, deleteSessionHandler);
 
 export default router;
