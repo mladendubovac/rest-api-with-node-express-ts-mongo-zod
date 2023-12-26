@@ -43,7 +43,7 @@ describe('product', () => {
 				const productId = 'product-123';
 				jest
 					.spyOn(productService, 'findProduct')
-					.mockImplementation(() => Promise.resolve(null));
+					.mockImplementationOnce(() => Promise.resolve(null));
 
 				await supertest(app).get(`/api/products/${productId}`).expect(404);
 			});
@@ -53,7 +53,7 @@ describe('product', () => {
 			it('should return a 200 status and the product', async () => {
 				jest
 					.spyOn(productService, 'findProduct')
-					.mockReturnValue(mockProductPromiseVal);
+					.mockReturnValueOnce(mockProductPromiseVal);
 
 				const { body, status } = await supertest(app).get(
 					`/api/products/${mockProduct.productId}`
@@ -90,7 +90,7 @@ describe('product', () => {
 
 				jest
 					.spyOn(productService, 'createProduct')
-					.mockReturnValue(mockProductPromiseVal);
+					.mockReturnValueOnce(mockProductPromiseVal);
 
 				const { statusCode, body } = await supertest(app)
 					.post('/api/products')
